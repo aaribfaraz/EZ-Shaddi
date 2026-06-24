@@ -27,7 +27,9 @@ class _ShellScreenState extends State<ShellScreen> {
           body: IndexedStack(index: _index, children: _screens),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: _index,
+            backgroundColor: Colors.white,
             selectedItemColor: const Color(0xFF3D4FE0),
+            unselectedItemColor: Colors.black54,
             onTap: (i) => setState(() => _index = i),
             items: [
               const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
