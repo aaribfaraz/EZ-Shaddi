@@ -26,14 +26,19 @@ class CartScreen extends StatelessWidget {
                     title: Text(item.vendor.name),
                     subtitle: Text('${item.vendor.category.label} · Qty ${item.quantity}'),
                     trailing: Column(
+                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text('PKR ${item.lineTotal.toStringAsFixed(0)}', style: const TextStyle(fontWeight: FontWeight.bold)),
+                        Text('PKR ${item.lineTotal.toStringAsFixed(0)}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
                         TextButton(
                           onPressed: () => appState.removeFromCart(item.vendor.id),
-                          style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: const Size(40, 24)),
-                          child: const Text('Remove', style: TextStyle(fontSize: 12, color: Colors.red)),
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: const Size(40, 20),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
+                          child: const Text('Remove', style: TextStyle(fontSize: 11, color: Colors.red)),
                         ),
                       ],
                     ),
@@ -45,6 +50,7 @@ class CartScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

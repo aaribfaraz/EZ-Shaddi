@@ -13,41 +13,38 @@ class ShellScreen extends StatefulWidget {
 }
 
 class _ShellScreenState extends State<ShellScreen> {
-  final AppState _appState = AppState();
   int _index = 0;
 
   static const _screens = [HomeScreen(), CartScreen(), BudgetScreen(), ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {
-    return AppStateScope(
-      appState: _appState,
-      child: AnimatedBuilder(
-        animation: _appState,
-        builder: (context, _) {
-          return Scaffold(
-            body: IndexedStack(index: _index, children: _screens),
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: _index,
-              selectedItemColor: const Color(0xFF3D4FE0),
-              onTap: (i) => setState(() => _index = i),
-              items: [
-                const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-                BottomNavigationBarItem(
-                  icon: Badge(
-                    label: Text('${_appState.cart.length}'),
-                    isLabelVisible: _appState.cart.isNotEmpty,
-                    child: const Icon(Icons.shopping_cart),
-                  ),
-                  label: 'Cart',
+    final appState = AppStateScope.of(context);
+    return AnimatedBuilder(
+      animation: appState,
+      builder: (context, _) {
+        return Scaffold(
+          body: IndexedStack(index: _index, children: _screens),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: _index,
+            selectedItemColor: const Color(0xFF3D4FE0),
+            onTap: (i) => setState(() => _index = i),
+            items: [
+              const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(
+                icon: Badge(
+                  label: Text('${appState.cart.length}'),
+                  isLabelVisible: appState.cart.isNotEmpty,
+                  child: const Icon(Icons.shopping_cart),
                 ),
-                const BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'Budget'),
-                const BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-              ],
-            ),
-          );
-        },
-      ),
+                label: 'Cart',
+              ),
+              const BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'Budget'),
+              const BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+            ],
+          ),
+        );
+      },
     );
   }
 }
